@@ -3,17 +3,31 @@
 @theme {
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --color-[#0F172A]: #0F172A;
-  --color-[#2563EB]: #2563EB;
-  --color-[#F59E0B]: #F59E0B;
-  --color-[#F8FAFC]: #F8FAFC;
+}
+
+/* ── GLOBALFLY Brand Variables ───────────────────────────────────────────── */
+:root {
+  --brand-yellow: #FFC928;
+  --brand-yellow-dark: #E6B400;
+  --brand-yellow-light: #FFF3B0;
+  --brand-black: #111111;
+  --brand-black-mid: #1A1A1A;
+  --brand-black-soft: #222222;
+  --brand-red: #D40511;
+  --brand-white: #FFFFFF;
+  --text-on-dark: rgba(255, 255, 255, 0.72);
+  --border-dark: rgba(255, 255, 255, 0.09);
+  --section-light: #F9F9F9;
+  --text-body: #374151;
+  --text-muted: #6B7280;
+  --border-light: #E5E7EB;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: #FFFFFF;
+    color: #111111;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -28,10 +42,118 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Keyframe Animations ─────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-16px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-22px) rotate(6deg); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.07); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Animation Utility Classes ───────────────────────────────────────────── */
+
+.animate-fadeUp      { animation: fadeUp      0.7s ease-out both; }
+.animate-fadeIn      { animation: fadeIn      0.6s ease-out both; }
+.animate-slideInLeft { animation: slideInLeft 0.7s ease-out both; }
+.animate-slideInRight{ animation: slideInRight 0.7s ease-out both; }
+.animate-floatY      { animation: floatY      4s   ease-in-out infinite; }
+.animate-floatSlow   { animation: floatSlow   6s   ease-in-out infinite; }
+.animate-rotateSlow  { animation: rotateSlow  22s  linear     infinite; }
+.animate-pulseGlow   { animation: pulseGlow   3s   ease-in-out infinite; }
+
+/* Stagger delay helpers */
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
+.delay-600 { animation-delay: 0.60s; }
+.delay-700 { animation-delay: 0.70s; }
+.delay-800 { animation-delay: 0.80s; }
+
+/* ── Scroll-Reveal (Intersection Observer powered via JS hook) ───────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Glass / Backdrop Utilities ──────────────────────────────────────────── */
+
 .glass-nav {
   background: rgba(15, 23, 42, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-nav-dark {
+  background: rgba(17, 17, 17, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .glass-card {
@@ -39,4 +161,194 @@ html {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* ── Brand Colour Utilities ──────────────────────────────────────────────── */
+
+.brand-gradient-text {
+  background: linear-gradient(135deg, #FFC928, #FFE066, #FFC928);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-gradient-bg {
+  background: linear-gradient(135deg, #FFC928 0%, #E6B400 100%);
+}
+
+/* ── Section Colour Helpers ──────────────────────────────────────────────── */
+
+.section-dark  { background-color: #111111; color: #FFFFFF; }
+.section-mid   { background-color: #1A1A1A; color: #FFFFFF; }
+.section-light { background-color: #F9F9F9; }
+.section-white { background-color: #FFFFFF; }
+
+/* ── Card Styles ─────────────────────────────────────────────────────────── */
+
+.card-dark {
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-dark:hover {
+  border-color: rgba(255, 201, 40, 0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+.card-light {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-light:hover {
+  border-color: rgba(255, 201, 40, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Button System ───────────────────────────────────────────────────────── */
+
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  outline: none;
+  text-decoration: none;
+}
+
+.btn-brand-primary {
+  background: #FFC928;
+  color: #111111;
+  border-color: #FFC928;
+}
+.btn-brand-primary:hover {
+  background: #E6B400;
+  border-color: #E6B400;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 201, 40, 0.38);
+}
+
+.btn-brand-outline {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.btn-brand-outline:hover {
+  border-color: #FFC928;
+  color: #FFC928;
+}
+
+.btn-brand-dark {
+  background: #111111;
+  color: #FFC928;
+  border-color: #111111;
+}
+.btn-brand-dark:hover {
+  background: #1A1A1A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Section Badge Pills ─────────────────────────────────────────────────── */
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-badge-yellow {
+  background: rgba(255, 201, 40, 0.12);
+  color: #FFC928;
+  border: 1px solid rgba(255, 201, 40, 0.25);
+}
+
+.section-badge-dark {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.section-badge-light {
+  background: #FFF8E1;
+  color: #7C5600;
+  border: 1px solid #FFECB3;
+}
+
+/* ── Yellow Accent Lines ─────────────────────────────────────────────────── */
+
+.yellow-line {
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: #FFC928;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.yellow-line-center {
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: #FFC928;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+/* ── Nav Hover Underline Animation ───────────────────────────────────────── */
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #FFC928;
+  transition: width 0.28s ease;
+  border-radius: 1px;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-fadeUp, .animate-fadeIn,
+  .animate-slideInLeft, .animate-slideInRight,
+  .animate-floatY, .animate-floatSlow,
+  .animate-rotateSlow, .animate-pulseGlow {
+    animation: none;
+  }
 }

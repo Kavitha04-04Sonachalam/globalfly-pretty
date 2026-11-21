@@ -28,7 +28,7 @@ import NotFound from './pages/NotFound';
 export const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
+      <div className="flex flex-col min-h-screen bg-white">
         <Header />
         <div className="flex-grow">
           <Routes>

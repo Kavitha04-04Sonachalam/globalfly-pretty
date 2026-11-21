@@ -1,81 +1,102 @@
 import React from 'react';
-import { Quote, Star } from 'lucide-react';
-import Badge from '../ui/Badge';
+import { Star } from 'lucide-react';
+import useScrollReveal from '../../hooks/useScrollReveal';
+
+const TESTIMONIALS = [
+  {
+    name: 'Rohan Sharma',
+    role: 'Registered Nurse',
+    location: 'Frankfurt, Germany',
+    text: 'The guidance provided by GLOBALFLY during my document translation and German B1 exam preparation made my journey smooth. The team gave realistic expectations at every step.',
+    isSample: true,
+  },
+  {
+    name: 'Anil Kumar',
+    role: 'Specialty Chef',
+    location: 'Munich, Germany',
+    text: 'GLOBALFLY evaluated my culinary diploma and matched me with a high-standard employer in Bavaria. Their pre-departure orientation helped me adapt easily.',
+    isSample: true,
+  },
+  {
+    name: 'Priya Nair',
+    role: 'Ausbildung Trainee (Healthcare)',
+    location: 'Stuttgart, Germany',
+    text: 'Joining an Ausbildung program in Germany was my dream. GLOBALFLY helped me understand the stipend structure, contract details, and embassy paperwork.',
+    isSample: true,
+  },
+];
 
 export const Testimonials = () => {
-  const testimonials = [
-    {
-      name: 'Rohan Sharma',
-      role: 'Registered Nurse',
-      location: 'Frankfurt, Germany',
-      text: 'The guidance provided by GlobalFly during my document translation and German B1 exam preparation made my journey smooth. The team gave realistic expectations at every step.',
-      isSample: true
-    },
-    {
-      name: 'Anil Kumar',
-      role: 'Specialty Chef',
-      location: 'Munich, Germany',
-      text: 'GlobalFly evaluated my culinary diploma and matched me with a high-standard employer in Bavaria. Their pre-departure orientation helped me adapt easily.',
-      isSample: true
-    },
-    {
-      name: 'Priya Nair',
-      role: 'Ausbildung Trainee (Healthcare)',
-      location: 'Stuttgart, Germany',
-      text: 'Joining an Ausbildung program in Germany was my dream. GlobalFly helped me understand the stipend structure, contract details, and embassy paperwork.',
-      isSample: true
-    }
-  ];
+  const ref = useScrollReveal({ stagger: true, staggerMs: 120 });
 
   return (
-    <section className="py-20 bg-[#F8FAFC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#2563EB] bg-[#EFF6FF] px-3.5 py-1.5 rounded-full mb-3">
+    <section ref={ref} style={{ background: '#FFFFFF', padding: '96px 0' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16 reveal">
+          <span className="yellow-line-center" />
+          <span className="section-badge section-badge-light mb-5 inline-flex">
             Candidate Experiences
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] font-display tracking-tight">
-            Stories from Our Candidates
+          <h2 className="font-display font-black text-4xl sm:text-5xl mb-4" style={{ color: '#111111' }}>
+            Stories from Our{' '}
+            <span style={{ color: '#FFC928' }}>Candidates</span>
           </h2>
-          <p className="mt-3 text-base text-[#64748B] leading-relaxed">
+          <p className="text-base" style={{ color: '#6B7280' }}>
             Read experience feedback from candidates guided through overseas career pathways.
           </p>
         </div>
 
-        {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-          {testimonials.map((t, i) => (
+        {/* Testimonial cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {TESTIMONIALS.map((t, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-6 sm:p-8 border border-[#E2E8F0] shadow-sm flex flex-col justify-between relative"
+              className="reveal card-light p-8 flex flex-col justify-between relative"
+              style={{ transitionDelay: `${i * 0.12}s` }}
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Quote className="w-8 h-8 text-[#2563EB]/20" />
-                  <div className="flex text-[#F59E0B] gap-1">
-                    {[...Array(5)].map((_, s) => (
-                      <Star key={s} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
+                {/* Star rating */}
+                <div className="flex items-center gap-1 mb-5">
+                  {[...Array(5)].map((_, s) => (
+                    <Star key={s} className="w-4 h-4" style={{ color: '#FFC928', fill: '#FFC928' }} />
+                  ))}
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#475569] leading-relaxed italic mb-6">
-                  "{t.text}"
+                {/* Yellow quote mark */}
+                <div
+                  className="font-display font-black text-5xl mb-3 leading-none select-none"
+                  style={{ color: '#FFC928' }}
+                >
+                  &ldquo;
+                </div>
+
+                <p className="text-sm leading-relaxed italic mb-6" style={{ color: '#374151' }}>
+                  {t.text}
                 </p>
               </div>
 
-              <div className="border-t border-[#F1F5F9] pt-4">
-                <h4 className="text-sm font-bold text-[#0F172A] font-display">
+              <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '16px' }}>
+                <div className="font-display font-bold text-sm" style={{ color: '#111111' }}>
                   {t.name}
-                </h4>
-                <p className="text-xs font-medium text-[#2563EB]">
-                  {t.role} • <span className="text-[#64748B]">{t.location}</span>
-                </p>
-                <div className="mt-2">
-                  <Badge variant="demo" className="text-[10px]">
-                    Sample testimonial — replace with approved client testimonial before production.
-                  </Badge>
                 </div>
+                <div className="text-xs mt-0.5" style={{ color: '#FFC928' }}>
+                  {t.role}
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: '#9CA3AF' }}>
+                  {t.location}
+                </div>
+                {t.isSample && (
+                  <div className="mt-3">
+                    <span
+                      className="text-xs px-2.5 py-1 rounded-full font-semibold"
+                      style={{ background: '#FFF8E1', color: '#7C5600' }}
+                    >
+                      Sample — replace with approved testimonial before launch
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           ))}
